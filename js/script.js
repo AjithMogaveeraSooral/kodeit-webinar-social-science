@@ -124,6 +124,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Update placeholder text for pre-checked checkboxes on page load
+    document.querySelectorAll('.schedule-dropdown').forEach(function(dropdown) {
+        const checked = dropdown.querySelectorAll('input[type="checkbox"]:checked');
+        const placeholder = dropdown.querySelector('.placeholder-text');
+        if (checked.length > 0) {
+            const names = Array.from(checked).map(c => c.value.split('— ')[1] || c.value);
+            placeholder.textContent = names.join(', ');
+        }
+    });
 });
 
 function toggleCountryDropdown() {
