@@ -1,2 +1,2 @@
-# kodeit-webinar-social-science
-Kodeit Webinar Social Science
+# kodeit-educator-event
+Kodeit Educator Event
