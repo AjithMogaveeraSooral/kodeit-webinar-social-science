@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const registrationForm = document.getElementById('registrationForm');
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbw7Jcu85WF4A21fbfGCFLhfnHUWgvn1pf64zS_026sKLJIZ9EXC6ZMqc68r--C1oak/exec'; // <--- Paste your App Script URL here
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbz47suZszETXA2WzPbnmUaxbmLfJo4ozswIK_vV4lhjqtwL91NzPID8HMwL99SbBHI/exec'; // <--- Paste your App Script URL here
 
     registrationForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -9,11 +9,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const allScheduleCheckboxes = document.querySelectorAll('.schedule-dropdown input[type="checkbox"]:checked');
         const scheduleError = document.getElementById('scheduleError');
         if (allScheduleCheckboxes.length === 0) {
-            scheduleError.style.display = 'block';
-            scheduleError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (scheduleError) {
+                scheduleError.style.display = 'block';
+                scheduleError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                alert('Please select at least one schedule option.');
+            }
             return;
         }
-        scheduleError.style.display = 'none';
+        if (scheduleError) {
+            scheduleError.style.display = 'none';
+        }
 
         const submitBtn = document.querySelector('.btn-submit-modern');
         const originalText = submitBtn.innerText;
@@ -109,8 +115,9 @@ document.addEventListener('DOMContentLoaded', function() {
         cb.addEventListener('change', function() {
             // Hide schedule error if any checkbox is now checked
             var anyChecked = document.querySelectorAll('.schedule-dropdown input[type="checkbox"]:checked').length > 0;
-            if (anyChecked) {
-                document.getElementById('scheduleError').style.display = 'none';
+            var scheduleError = document.getElementById('scheduleError');
+            if (anyChecked && scheduleError) {
+                scheduleError.style.display = 'none';
             }
 
             const dropdown = this.closest('.schedule-dropdown');
